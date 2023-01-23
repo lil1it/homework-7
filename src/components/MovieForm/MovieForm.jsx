@@ -1,0 +1,74 @@
+import { useRef } from "react";
+import styled from "styled-components";
+import Input from "../UI/inputs/Input";
+
+const MovieForm = (props) => {
+  const imageInputRef = useRef();
+  const titleInputRef = useRef();
+  const ratingInputRef = useRef();
+  const saveHandler = (event) => {
+    event.preventDefault();
+    const newMovie = {
+      img: imageInputRef.current.value,
+      title: titleInputRef.current.value,
+      rating: ratingInputRef.current.value,
+    };
+    props.NewMovieHandler(newMovie);
+    props.onClose();
+  };
+
+  return (
+    <form>
+      <Input
+        id="name"
+        labelName="MOVIE:"
+        inputType="text"
+        placeholder="Movie title"
+        ref={titleInputRef}
+      />
+      <Input
+        id="link"
+        labelName="IMAGE:"
+        inputType="text"
+        placeholder="Link"
+        ref={imageInputRef}
+      />
+      <Input
+        labelName="RATING:"
+        inputType="number"
+        id="rating"
+        placeholder="Rating"
+        ref={ratingInputRef}
+      />
+      <div>
+        <CancelButton onClick={props.onClose}>CANCEL</CancelButton>
+        <AddButton onClick={saveHandler}>ADD MOVIE</AddButton>
+      </div>
+    </form>
+  );
+};
+
+export default MovieForm;
+
+const CancelButton = styled.button`
+  width: 100px;
+  height: 50px;
+  border-radius: 15px;
+  color: #fff;
+  background: red;
+  border: 0;
+  font-size: large;
+  font-weight: bold;
+`;
+const AddButton = styled.button`
+  width: 100px;
+  height: 50px;
+  border-radius: 15px;
+  color: #fff;
+  background: #f67722;
+  margin-left: 305px;
+  margin-top: 30px;
+  border: 0;
+  font-size: large;
+  font-weight: bold;
+`;
